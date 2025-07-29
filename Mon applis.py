@@ -280,7 +280,7 @@ def main():
                       import gspread
                       from gspread_dataframe import get_as_dataframe, set_with_dataframe
                       # Lecture sécurisée des credentials depuis les secrets
-                      creds_dict = st.secrets["google_service_account"]
+                      creds_dict = st.secrets["gcp_service_account"]
                       creds_json = json.loads(json.dumps(creds_dict))
 
                       scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
@@ -356,7 +356,7 @@ def main():
                   import gspread
                   from gspread_dataframe import get_as_dataframe, set_with_dataframe
             
-                  creds_dict = st.secrets["google_service_account"]
+                  creds_dict = st.secrets["gcp_service_account"]
                   creds_json = json.loads(json.dumps(creds_dict))
 
                   scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
