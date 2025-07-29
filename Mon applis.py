@@ -281,10 +281,9 @@ def main():
                       from gspread_dataframe import get_as_dataframe, set_with_dataframe
                       # Lecture sécurisée des credentials depuis les secrets
                       creds_dict = st.secrets["gcp_service_account"]
-                      creds_json = json.loads(json.dumps(creds_dict))
 
                       scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                      credentials = ServiceAccountCredentials.from_json_keyfile_dict(creds_json, scope)
+                      credentials = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 
                       # Connexion Google Sheets
                       sa = gspread.authorize(credentials)
@@ -357,10 +356,9 @@ def main():
                   from gspread_dataframe import get_as_dataframe, set_with_dataframe
             
                   creds_dict = st.secrets["gcp_service_account"]
-                  creds_json = json.loads(json.dumps(creds_dict))
 
                   scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                  credentials = ServiceAccountCredentials.from_json_keyfile_dict(creds_json, scope)
+                  credentials = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 
                   # Connexion Google Sheets
                   sa1 = gspread.authorize(credentials)
