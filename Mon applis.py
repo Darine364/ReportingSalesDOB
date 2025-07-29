@@ -7,6 +7,9 @@ import pandas as pd
 from datetime import datetime, timedelta
 import pytz
 import re
+import json
+from oauth2client.service_account import ServiceAccountCredentials
+
 
 #import os
 #os.chdir(r"D:\Dashboard_B2B\form_streamlit\dashbord_ajuste")
@@ -273,10 +276,18 @@ def main():
                   elif signal==-2:  
                       st.write('<span style="color: red;">Error: SVP, veuillez respecter le format des numeros de tickets</span>', unsafe_allow_html=True)
                 
-                  else: 
+                  else:
                       import gspread
                       from gspread_dataframe import get_as_dataframe, set_with_dataframe
-                      sa = gspread.service_account(filename="C:/Users/DTDS3300/Desktop/Orange/Fichier_Formulaire/reportingsales-649d4b4740a5.json")
+                      # Lecture sécurisée des credentials depuis les secrets
+                      creds_dict = st.secrets["google_service_account"]
+                      creds_json = json.loads(json.dumps(creds_dict))
+
+                      scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                      credentials = ServiceAccountCredentials.from_json_keyfile_dict(creds_json, scope)
+
+                      # Connexion Google Sheets
+                      sa = gspread.authorize(credentials)
                       sh = sa.open("Reporting Des Ventes DOB")
                       worksheet = sh.worksheet("base")
                       # Convertir le DataFrame en une structure de données que gspread comprend
@@ -345,7 +356,14 @@ def main():
                   import gspread
                   from gspread_dataframe import get_as_dataframe, set_with_dataframe
             
-                  sa1 = gspread.service_account(filename="C:/Users/DTDS3300/Desktop/Orange/Fichier_Formulaire/reportingsales-649d4b4740a5.json")
+                  creds_dict = st.secrets["google_service_account"]
+                  creds_json = json.loads(json.dumps(creds_dict))
+
+                  scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                  credentials = ServiceAccountCredentials.from_json_keyfile_dict(creds_json, scope)
+
+                  # Connexion Google Sheets
+                  sa1 = gspread.authorize(credentials)
                   sh1 = sa1.open("Reporting Des Ventes DOB")
                   worksheet1 = sh1.worksheet("base")
                   # Convertir le DataFrame en une structure de données que gspread comprend
